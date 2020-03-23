@@ -19,12 +19,13 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private final int CAMERA_PERMISSIONS_REQUEST = 1;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
-    private String token = "currentToken";
+    private String token = "token";
     private String previousToken = "previousToken";
 
     @Override
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         initComponents();
         configureCamera();
 
-        // preparo el detector de QR
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -42,33 +42,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                if (barcodes.size() > 0) {
-                    token = barcodes.valueAt(0).displayValue.toString();
-                    if (!token.equals(previousToken)) {
-                        previousToken = token;
-                        TextView tv = findViewById(R.id.tvToken);
-                        tv.setText(token);
-                    }
+                final SparseArray<Barcode> code = detections.getDetectedItems();
+                if (code.size() == 0) {
+                    return;
+                }
+                token = code.valueAt(0).displayValue;
+                if (!token.equals(previousToken)) {
+                    previousToken = token;
+                    TextView tv = findViewById(R.id.tvToken);
+                    tv.setText(token);
                 }
             }
         });
     }
 
     private void initComponents() {
-        // creo el detector qr
         barcodeDetector = new BarcodeDetector.Builder(getApplicationContext())
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
 
-        // creo la camara fuente
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setRequestedPreviewSize(640, 480)
                 .build();
     }
 
     private void configureCamera() {
-        final SurfaceView cameraView = (SurfaceView) findViewById(R.id.svCamera);
+        final SurfaceView cameraView = findViewById(R.id.svCamera);
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
@@ -80,12 +79,11 @@ public class MainActivity extends AppCompatActivity {
                                     CAMERA_PERMISSIONS_REQUEST);
                         }
                     }
-                    return;
                 } else {
                     try {
                         cameraSource.start(cameraView.getHolder());
                     } catch (IOException ie) {
-                        Log.e("CAMERA SOURCE", ie.getMessage());
+                        Log.e("CAMERA SOURCE", Objects.requireNonNull(ie.getMessage()));
                     }
                 }
             }
