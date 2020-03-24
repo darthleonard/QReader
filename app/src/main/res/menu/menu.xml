@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_open_always"
+        android:icon="@drawable/ic_action_open_always"
+        android:title="@string/menu_open_always" />
+    <item android:id="@+id/menu_reset"
+        android:icon="@drawable/ic_action_reset"
+        android:title="@string/menu_reset" />
+    <item android:id="@+id/menu_copy"
+        android:icon="@drawable/ic_action_copy"
+        android:title="@string/menu_copy" />
+    <item android:id="@+id/menu_open"
+        android:icon="@drawable/ic_action_open"
+        android:title="@string/menu_open" />
+    <item android:id="@+id/menu_list"
+        android:icon="@drawable/ic_action_list"
+        android:title="@string/menu_list" />
+    <item android:id="@+id/menu_save"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/menu_save" />
+</menu>

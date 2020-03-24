@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">QReader</string>
     <string name="token_default">Nada leído todavía...</string>
+    <string name="menu_open_always">Abrir siempre</string>
+    <string name="menu_reset">Limpiar</string>
+    <string name="menu_copy">Copiar</string>
+    <string name="menu_open">Abrir</string>
+    <string name="menu_list">Ver codigos</string>
+    <string name="menu_save">Guardar</string>
 </resources>
