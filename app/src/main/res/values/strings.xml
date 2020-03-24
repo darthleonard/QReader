@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QReader</string>
+    <string name="token_default">Nada leído todavía...</string>
 </resources>

@@ -14,6 +14,9 @@
             android:id="@+id/tvToken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="nothing..." />
+            android:background="@color/tokenBackground"
+            android:textColor="@color/tokenText"
+            android:textAlignment="center"
+            android:text="@string/token_default"/>
 
 </LinearLayout>
