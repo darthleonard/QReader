@@ -7,4 +7,10 @@
     <string name="menu_open">Abrir</string>
     <string name="menu_list">Ver codigos</string>
     <string name="menu_save">Guardar</string>
+
+    <string name="permissionPromptTitle">Permiso necesario</string>
+    <string name="permissionPromptMessage">Necesito usar la camara para poder leer los codigos QR</string>
+    <string name="permissionPromptSadMessage">Soy inutil sin permiso para acceder a la camara</string>
+    <string name="permissionButtonText">Entendido</string>
 </resources>
+
