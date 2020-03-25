@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private final int CAMERA_PERMISSIONS_REQUEST = 1;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
-    private String token = "token";
-    private String previousToken = "previousToken";
+    private BarcodeDetectorProcessor barcodeDetectorProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_copy:
                 return true;
             case R.id.menu_open:
-                openToken();
+                new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
                 return true;
             case R.id.menu_list:
                 return true;
@@ -132,61 +131,8 @@ public class MainActivity extends AppCompatActivity {
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setRequestedPreviewSize(800, 600)
                 .build();
-        configureCamera();
-        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-            @Override
-            public void release() {
-            }
-
-            @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> code = detections.getDetectedItems();
-                if (code.size() == 0) {
-                    return;
-                }
-                token = code.valueAt(0).displayValue;
-                if (!token.equals(previousToken)) {
-                    previousToken = token;
-                    TextView tv = findViewById(R.id.tvToken);
-                    tv.setText(token);
-                }
-            }
-        });
-    }
-
-    private void configureCamera() {
-        final SurfaceView cameraView = findViewById(R.id.svCamera);
-        cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                try {
-                    cameraSource.start(cameraView.getHolder());
-                } catch (IOException ie) {
-                    Log.e("CAMERA SOURCE", Objects.requireNonNull(ie.getMessage()));
-                }
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                cameraSource.stop();
-            }
-        });
-    }
-
-    private void openToken() {
-        if (URLUtil.isValidUrl(token)) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(token));
-            startActivity(browserIntent);
-        } else {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, token);
-            shareIntent.setType("text/plain");
-            startActivity(shareIntent);
-        }
+        new CameraHelper().Configure((SurfaceView) findViewById(R.id.svCamera), cameraSource);
+        barcodeDetectorProcessor = new BarcodeDetectorProcessor(this, barcodeDetector);
+        barcodeDetectorProcessor.Start();
     }
 }
