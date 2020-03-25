@@ -18,8 +18,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 public class MainActivity extends AppCompatActivity {
     public final int CAMERA_PERMISSIONS_REQUEST = 1;
-    private BarcodeDetector barcodeDetector;
-    private CameraSource cameraSource;
     private BarcodeDetectorProcessor barcodeDetectorProcessor;
 
     @Override
@@ -75,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initComponents() {
         setContentView(R.layout.activity_main);
-        barcodeDetector = new BarcodeDetector.Builder(getApplicationContext())
+        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(getApplicationContext())
                 .setBarcodeFormats(Barcode.QR_CODE)
                 .build();
-        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
+        CameraSource cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setRequestedPreviewSize(800, 600)
                 .build();
         new CameraHelper().Configure((SurfaceView) findViewById(R.id.svCamera), cameraSource);
