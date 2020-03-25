@@ -1,4 +1,4 @@
-package darthleonard.archaos.qreader;
+package darthleonard.archaos.qreader.services;
 
 import android.util.SparseArray;
 import android.widget.TextView;
@@ -6,6 +6,9 @@ import android.widget.TextView;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+
+import darthleonard.archaos.qreader.MainActivity;
+import darthleonard.archaos.qreader.R;
 
 public class BarcodeDetectorProcessor {
     private MainActivity mainActivity;

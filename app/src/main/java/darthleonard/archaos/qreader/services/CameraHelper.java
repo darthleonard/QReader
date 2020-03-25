@@ -1,6 +1,5 @@
-package darthleonard.archaos.qreader;
+package darthleonard.archaos.qreader.services;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;

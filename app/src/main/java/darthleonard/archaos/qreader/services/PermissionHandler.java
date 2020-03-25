@@ -1,10 +1,15 @@
-package darthleonard.archaos.qreader;
+package darthleonard.archaos.qreader.services;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import darthleonard.archaos.qreader.builders.PromptBuilder;
+import darthleonard.archaos.qreader.interfaces.IPermissionHandler;
+import darthleonard.archaos.qreader.MainActivity;
+import darthleonard.archaos.qreader.R;
 
 public class PermissionHandler implements IPermissionHandler {
     public boolean CheckPermissions(MainActivity mainActivity) {
@@ -27,13 +32,13 @@ public class PermissionHandler implements IPermissionHandler {
     private void requestCameraPermission(MainActivity mainActivity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(mainActivity,
                 Manifest.permission.CAMERA)) {
-            showPrompt(mainActivity, R.string.permissionPromptMessage);
+            showPrompt(mainActivity);
         } else {
             RequestPermissions(mainActivity);
         }
     }
 
-    private void showPrompt(MainActivity mainActivity, int messageId) {
-        new PromptBuilder().Create(mainActivity, messageId, this);
+    private void showPrompt(MainActivity mainActivity) {
+        new PromptBuilder().Create(mainActivity, R.string.permissionPromptMessage, this);
     }
 }

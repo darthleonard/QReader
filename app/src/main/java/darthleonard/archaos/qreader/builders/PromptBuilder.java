@@ -1,8 +1,12 @@
-package darthleonard.archaos.qreader;
+package darthleonard.archaos.qreader.builders;
 
 import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
+
+import darthleonard.archaos.qreader.interfaces.IPermissionHandler;
+import darthleonard.archaos.qreader.MainActivity;
+import darthleonard.archaos.qreader.R;
 
 public class PromptBuilder {
     public void Create(final MainActivity mainActivity, int messageId, final IPermissionHandler permissionHandler) {

@@ -16,6 +16,11 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+import darthleonard.archaos.qreader.services.BarcodeDetectorProcessor;
+import darthleonard.archaos.qreader.services.CameraHelper;
+import darthleonard.archaos.qreader.services.PermissionHandler;
+import darthleonard.archaos.qreader.services.TokenHandler;
+
 public class MainActivity extends AppCompatActivity {
     public final int CAMERA_PERMISSIONS_REQUEST = 1;
     private BarcodeDetectorProcessor barcodeDetectorProcessor;

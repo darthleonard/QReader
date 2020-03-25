@@ -1,4 +1,4 @@
-package darthleonard.archaos.qreader;
+package darthleonard.archaos.qreader.services;
 
 import android.content.Context;
 import android.content.Intent;
