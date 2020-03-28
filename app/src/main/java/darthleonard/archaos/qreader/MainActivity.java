@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_list:
                 return true;
             case R.id.menu_save:
+                new TokenHandler().Save(getApplicationContext(), barcodeDetectorProcessor.getToken());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
