@@ -48,17 +48,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_open_always:
+                // configure to open token on detection
                 return true;
             case R.id.menu_reset:
                 TextView tv = findViewById(R.id.tvToken);
                 tv.setText(R.string.token_default);
                 return true;
             case R.id.menu_copy:
+                // copy token to clipboard
                 return true;
             case R.id.menu_open:
                 new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
                 return true;
             case R.id.menu_list:
+                // open new activity
                 return true;
             case R.id.menu_save:
                 new TokenHandler().Save(getApplicationContext(), barcodeDetectorProcessor.getToken());
