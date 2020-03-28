@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -55,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText(R.string.token_default);
                 return true;
             case R.id.menu_copy:
-                // copy token to clipboard
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("qr code", barcodeDetectorProcessor.getToken());
+                clipboard.setPrimaryClip(clip);
                 return true;
             case R.id.menu_open:
                 new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
