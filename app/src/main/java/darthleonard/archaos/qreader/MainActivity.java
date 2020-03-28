@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_open_always:
                 return true;
             case R.id.menu_reset:
+                TextView tv = findViewById(R.id.tvToken);
+                tv.setText(R.string.token_default);
                 return true;
             case R.id.menu_copy:
                 return true;
