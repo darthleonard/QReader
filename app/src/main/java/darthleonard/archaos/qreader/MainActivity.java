@@ -8,11 +8,13 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
                 return true;
             case R.id.menu_list:
-                // open new activity
+                startActivity(new Intent(this, CodesActivity.class));
+
                 return true;
             case R.id.menu_save:
                 new TokenHandler().Save(getApplicationContext(), barcodeDetectorProcessor.getToken());
