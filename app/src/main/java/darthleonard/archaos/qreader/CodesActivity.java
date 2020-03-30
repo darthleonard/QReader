@@ -10,10 +10,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import darthleonard.archaos.qreader.models.MyAdapter;
+import darthleonard.archaos.qreader.interfaces.CodeItemClickListener;
+import darthleonard.archaos.qreader.models.CodesAdapter;
 
-public class CodesActivity extends AppCompatActivity implements MyAdapter.ItemClickListener {
-    MyAdapter adapter;
+public class CodesActivity extends AppCompatActivity implements CodeItemClickListener {
+    CodesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +22,17 @@ public class CodesActivity extends AppCompatActivity implements MyAdapter.ItemCl
         setContentView(R.layout.activity_codes);
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
+        ArrayList<String> codes = new ArrayList<>();
+        codes.add("Horse");
+        codes.add("Cow");
+        codes.add("Camel");
+        codes.add("Sheep");
+        codes.add("Goat");
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvAnimals);
+        RecyclerView recyclerView = findViewById(R.id.rvCodes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyAdapter(this, animalNames);
+        adapter = new CodesAdapter(this, codes);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
