@@ -1,6 +1,7 @@
 package darthleonard.archaos.qreader;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,6 @@ public class CodesActivity extends AppCompatActivity implements CodeItemClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codes);
 
-        // data to populate the RecyclerView with
         ArrayList<String> codes = new ArrayList<>();
         codes.add("Horse");
         codes.add("Cow");
@@ -29,9 +29,13 @@ public class CodesActivity extends AppCompatActivity implements CodeItemClickLis
         codes.add("Sheep");
         codes.add("Goat");
 
-        // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvCodes);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
         adapter = new CodesAdapter(this, codes);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
