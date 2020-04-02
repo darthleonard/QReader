@@ -22,6 +22,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import darthleonard.archaos.qreader.services.BarcodeDetectorProcessor;
 import darthleonard.archaos.qreader.services.CameraHelper;
 import darthleonard.archaos.qreader.services.PermissionHandler;
+import darthleonard.archaos.qreader.services.TokenHandler;
 
 public class MainActivity extends AppCompatActivity {
     public final int CAMERA_PERMISSIONS_REQUEST = 1;
@@ -51,18 +52,15 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_open_always:
                 // configure to open token on detection
-                return true;
             case R.id.menu_reset:
                 TextView tv = findViewById(R.id.tvToken);
                 tv.setText(R.string.token_default);
-                return true;
             case R.id.menu_copy:
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("qr code", barcodeDetectorProcessor.getToken());
                 clipboard.setPrimaryClip(clip);
-                return true;
             case R.id.menu_open:
-                return true;
+                new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
             default:
                 return super.onOptionsItemSelected(item);
         }
