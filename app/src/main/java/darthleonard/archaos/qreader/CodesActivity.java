@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import darthleonard.archaos.qreader.interfaces.CodeItemClickListener;
 import darthleonard.archaos.qreader.models.CodesAdapter;
+import darthleonard.archaos.qreader.services.TokenHandler;
 
 public class CodesActivity extends AppCompatActivity implements CodeItemClickListener {
     CodesAdapter adapter;
@@ -28,6 +29,10 @@ public class CodesActivity extends AppCompatActivity implements CodeItemClickLis
         codes.add("Camel");
         codes.add("Sheep");
         codes.add("Goat");
+
+        for(String code : new TokenHandler().GetAll(this)) {
+            codes.add(code);
+        }
 
         RecyclerView recyclerView = findViewById(R.id.rvCodes);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DBManager {
@@ -36,20 +37,33 @@ public class DBManager {
         close();
     }
 
+    public boolean Exist(String code) {
+        open();
+        Cursor cursor = database.rawQuery(
+                "SELECT * FROM " + DatabaseHelper.TABLE_CODES + " WHERE " + DatabaseHelper.COLUMN_CODE + " = ?",
+                new String[] { code });
+        boolean flag = cursor.moveToFirst();
+        close();
+        return flag;
+    }
+
+    public ArrayList<String> GetAll() {
+        open();
+        ArrayList<String> result = new ArrayList<String>();
+        Cursor cursor = database.rawQuery(
+                "SELECT " + DatabaseHelper.COLUMN_CODE + " FROM " + DatabaseHelper.TABLE_CODES,
+                null);
+        while (cursor.moveToNext()) {
+            result.add(cursor.getString(0));
+        }
+        close();
+        return result;
+    }
+
     private DBManager open() throws SQLException {
         dbHelper = new DatabaseHelper(context);
         database = dbHelper.getWritableDatabase();
         return this;
-    }
-
-    public boolean Exist(String code) {
-        Cursor cursor = database.rawQuery(
-                "SELECT * FROM " + DatabaseHelper.TABLE_CODES + " WHERE name = ?",
-                new String[] { code });
-        if(cursor.moveToFirst()) {
-            return true;
-        }
-        return false;
     }
 
     private void close() {
