@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_open_always:
                 // configure to open token on detection
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_copy:
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("qr code", barcodeDetectorProcessor.getToken());
+                assert clipboard != null;
                 clipboard.setPrimaryClip(clip);
             case R.id.menu_open:
                 new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             initComponents();
         } else {
