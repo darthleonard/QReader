@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,10 +41,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        if(menu instanceof MenuBuilder){
+        if(menu instanceof MenuBuilder) {
             MenuBuilder m = (MenuBuilder) menu;
             m.setOptionalIconsVisible(true);
         }
+        menu.getItem(0).setChecked(
+                getSharedPreferences("preferences", 0)
+                        .getBoolean("OpenAlways", false));
         return true;
     }
 
@@ -51,17 +55,28 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_open_always:
-                // configure to open token on detection
+                boolean isChecked = !item.isChecked();
+                item.setChecked(isChecked);
+                SharedPreferences settings = getSharedPreferences("preferences", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(
+                        "OpenAlways",
+                        settings.getBoolean("OpenAlways", isChecked));
+                editor.apply();
+                return true;
             case R.id.menu_reset:
                 TextView tv = findViewById(R.id.tvToken);
                 tv.setText(R.string.token_default);
+                return true;
             case R.id.menu_copy:
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("qr code", barcodeDetectorProcessor.getToken());
                 assert clipboard != null;
                 clipboard.setPrimaryClip(clip);
+                return true;
             case R.id.menu_open:
                 new TokenHandler().OpenToken(getApplicationContext(), barcodeDetectorProcessor.getToken());
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -33,11 +33,16 @@ public class BarcodeDetectorProcessor {
                 if (code.size() == 0) {
                     return;
                 }
+
                 token = code.valueAt(0).displayValue;
                 if (!token.equals(previousToken)) {
                     previousToken = token;
                     TextView tv = mainActivity.findViewById(R.id.tvToken);
                     tv.setText(token);
+                    if(mainActivity.getSharedPreferences("preferences", 0)
+                            .getBoolean("OpenAlways", false)) {
+                        new TokenHandler().OpenToken(mainActivity, token);
+                    }
                 }
             }
         });
