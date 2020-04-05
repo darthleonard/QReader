@@ -56,15 +56,14 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_open_always:
                 boolean isChecked = !item.isChecked();
-                item.setChecked(isChecked);
-                SharedPreferences settings = getSharedPreferences("preferences", 0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(
-                        "OpenAlways",
-                        settings.getBoolean("OpenAlways", isChecked));
+                SharedPreferences.Editor editor = getSharedPreferences("preferences", 0)
+                        .edit();
+                editor.putBoolean("OpenAlways", isChecked);
                 editor.apply();
+                item.setChecked(isChecked);
                 return true;
             case R.id.menu_reset:
+                barcodeDetectorProcessor.CleanToken();
                 TextView tv = findViewById(R.id.tvToken);
                 tv.setText(R.string.token_default);
                 return true;

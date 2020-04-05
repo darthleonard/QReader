@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QReader</string>
+    <string name="token_default">Nothing read yet</string>
+    <string name="menu_open_always">Open always</string>
+    <string name="menu_reset">Clean</string>
+    <string name="menu_copy">Copy</string>
+    <string name="menu_open">Open</string>
+    <string name="permissionPromptTitle">Permission needed</string>
+    <string name="permissionPromptMessage">I need to use the camera to read the QR codes</string>
+    <string name="permissionPromptSadMessage">I am useless without permission to access the camera</string>
+    <string name="permissionButtonText">Understood</string>
+</resources>

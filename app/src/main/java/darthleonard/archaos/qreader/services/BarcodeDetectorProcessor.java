@@ -51,4 +51,9 @@ public class BarcodeDetectorProcessor {
     public String getToken() {
         return token;
     }
+
+    public void CleanToken() {
+        token = "token";
+        previousToken = "previousToken";
+    }
 }
